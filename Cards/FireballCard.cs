@@ -1,12 +1,23 @@
 using UnityEngine;
 
-
-class FireballCard: Card
+namespace Cards
 {
-    public int damage;
-
-    public void OnClick()
+    public class FireballCard : MonoBehaviour, Card
     {
-        Debug.Log("Fireball clicked");
+        [field: NonSerialized]
+        public int cost { get; set; }
+        
+        [field: NonSerialized]
+        public string name { get; set; }
+
+        [field: NonSerialized]
+        public CardState State { get; set; } = CardState.InDeck;
+        
+        public int damage;
+        public float castTime;
+        
+        public void Play() {
+            Debug.Log("Fireball played");
+        }
     }
 }
