@@ -1,7 +1,7 @@
 // logic for drawing cards
 using UnityEngine;
 using System.Collections.Generic;
-using Cards;
+using CardSystem;
 
 public class Deck: MonoBehaviour
 {
@@ -38,12 +38,12 @@ public class Deck: MonoBehaviour
         // shuffle the deck
     }
 
-    public void addToBottom(Card card)
+    public void AddToBottom(Card card)
     {
         cards.Add(card);
     }
 
-    public void addToTop(Card card)
+    public void AddToTop(Card card)
     {
         cards.Insert(0, card);
     }

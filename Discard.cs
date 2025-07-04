@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Cards;
+using CardSystem;
 
 public class Discard: MonoBehaviour
 {
@@ -9,7 +9,6 @@ public class Discard: MonoBehaviour
     public void AddCard(Card card)
     {
         cards.Add(card);
-        size = cards.Count;
     }
 
     public Card RemoveCard(Card card)

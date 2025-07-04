@@ -1,0 +1,7 @@
+Change CardFactory to use a lookup table / dictionary to load in cards, and then instantiate deck
+Fireball card effects
+Health and Shield HUD
+Enemy Spawner
+Mana regen, spell costs
+Mana UI
+Click Spells to play them

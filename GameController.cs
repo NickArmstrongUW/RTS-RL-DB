@@ -1,7 +1,7 @@
 // handles overall game state
 using UnityEngine;
 using System.Collections.Generic;
-using Cards;
+using CardSystem;
 
 public class GameController: MonoBehaviour
 {

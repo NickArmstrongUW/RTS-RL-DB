@@ -1,12 +1,13 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
-using Cards;
+using CardSystem;
 
+namespace CardSystem {
 public class CardManager: MonoBehaviour
 {
     public List<Card> hand;
-    public int handSize;
+    public int handSize=5;
     public Transform[] cardPositions;
     public Deck deck;
     public Discard discardPile;
@@ -15,7 +16,6 @@ public class CardManager: MonoBehaviour
     private void Start()
     {
         hand = new List<Card>();
-        handSize = 5;
         for (int i = 0; i < handSize; i++)
         {
             hand.Add(null);
@@ -25,7 +25,7 @@ public class CardManager: MonoBehaviour
 
     public void DrawCard()
     {
-        if (card == null)
+        if (deck.cards.Count == 0)
         {
             Debug.Log("Deck is empty!");
             return;
@@ -33,6 +33,7 @@ public class CardManager: MonoBehaviour
 
         for (int i = 0; i < cardPositions.Length; i++)
         {
+            Debug.Log($"Checking position {i}");
             if (hand[i] == null)
             {
                 Card card = deck.DrawCard();
@@ -55,26 +56,26 @@ public class CardManager: MonoBehaviour
         Debug.Log("Hand is full!");
     }
 
-    public void PlayCard(int handIndex)
-    {
-        if (handIndex < 0 || handIndex >= hand.Count || hand[handIndex] == null)
-        {
-            Debug.Log("Invalid card index or no card at position");
-            return;
-        }
+    // public void PlayCard(int handIndex)
+    // {
+    //     if (handIndex < 0 || handIndex >= hand.Count || hand[handIndex] == null)
+    //     {
+    //         Debug.Log("Invalid card index or no card at position");
+    //         return;
+    //     }
 
-        Card card = hand[handIndex];
-        card.State = CardState.Casting;
+    //     Card card = hand[handIndex];
+    //     card.State = CardState.Casting;
 
-        // wait for cast time
-        yield return new WaitForSeconds(card.castTime);
+    //     // wait for cast time
+    //     yield return new WaitForSeconds(card.castTime);
         
-        // Execute card effect
-        card.Play();
+    //     // Execute card effect
+    //     card.Play();
         
-        // Move to discard pile
-        DiscardCard(handIndex);
-    }
+    //     // Move to discard pile
+    //     DiscardCard(handIndex);
+    // }
 
     public void DiscardCard(int handIndex)
     {
@@ -102,13 +103,13 @@ public class CardManager: MonoBehaviour
         Debug.Log($"Card {card.name} discarded");
     }
 
-    public void moveDiscardToDeck()
+    public void MoveDiscardToDeck()
     {
         // move all cards from discard pile to deck
         foreach (Card card in discardPile.cards)
         {
-            discardPile.removeCard(card);
-            deck.addCard(card);
+            discardPile.RemoveCard(card);
+            deck.AddToBottom(card);
         }  
         deck.Shuffle();
     }
@@ -134,11 +135,12 @@ public class CardManager: MonoBehaviour
         card.State = CardState.InDeck;
         
         // Add back to deck
-        deck.addCard(card);
+        deck.AddToTop(card);
         
         // Remove from hand
         hand[handIndex] = null;
         
         Debug.Log($"Card {card.name} returned to deck");
     }
+}
 }
