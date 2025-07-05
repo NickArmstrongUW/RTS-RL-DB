@@ -13,6 +13,10 @@ namespace CardSystem {
         public virtual void Activate(Card cardInstance) {
             Debug.Log($"Activating {cardName}");
         }
+
+        public virtual void PreCast(Card cardInstance) {
+            Debug.Log($"Pre-casting {cardName}");
+        }
     }
 
     public enum CardType

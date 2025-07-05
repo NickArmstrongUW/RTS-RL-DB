@@ -7,6 +7,7 @@ public class Deck: MonoBehaviour
 {
     // public int size;
     public List<Card> cards;
+    public Transform deckCardsPosition;
 
     public void Initialize(List<Card> cards)
     {
@@ -41,11 +42,17 @@ public class Deck: MonoBehaviour
     public void AddToBottom(Card card)
     {
         cards.Add(card);
+        card.transform.SetParent(deckCardsPosition);
+        card.transform.localPosition = Vector3.zero;
+        card.transform.localRotation = Quaternion.identity;
     }
 
     public void AddToTop(Card card)
     {
         cards.Insert(0, card);
+        card.transform.SetParent(deckCardsPosition);
+        card.transform.localPosition = Vector3.zero;
+        card.transform.localRotation = Quaternion.identity;
     }
 
     // potentially change to scry to view x top cards

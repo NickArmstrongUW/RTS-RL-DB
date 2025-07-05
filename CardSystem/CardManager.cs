@@ -6,12 +6,23 @@ using CardSystem;
 namespace CardSystem {
 public class CardManager: MonoBehaviour
 {
+
+    public static CardSystem.CardManager instance;
+
     public List<Card> hand;
     public int handSize=5;
     public Transform[] cardPositions;
+    public Transform offScreenPosition;
     public Deck deck;
-    public Discard discardPile;
+    public Graveyard graveyard;
+    public Queue<Card> spellQueue;
+    public int maxSpellQueueSize = 3;
     // public Button deckButton;
+
+    public void Awake() {
+        instance = this;
+        spellQueue = new Queue<Card>();
+    }
 
     private void Start()
     {
@@ -23,19 +34,52 @@ public class CardManager: MonoBehaviour
         // deckButton.onClick.AddListener(DrawCard);
     }
 
-    public void DrawCard()
+    // callback for when a spell is played, queues the next spell
+    public void SpellCallback(Card card) {
+        spellQueue.Dequeue();
+        // play next spell in queue if any
+        if (spellQueue.Count > 0) {
+            spellQueue.Peek().Play(SpellCallback);
+        }
+    }
+
+    // queues a card from the hand
+    public void QueueCard(int handIndex)
     {
-        if (deck.cards.Count == 0)
-        {
-            Debug.Log("Deck is empty!");
+        if (spellQueue.Count >= maxSpellQueueSize) {
+            Debug.Log("Spell queue is full!");
             return;
         }
+        // add spell to queue
+        Card card = hand[handIndex];
+        spellQueue.Enqueue(card);
+        // move card to discard pile
+        DiscardCard(handIndex);
+        // if this is the first card in the queue, play it
+        if (spellQueue.Count == 1) {
+            spellQueue.Peek().Play(SpellCallback);
+        }
+    }
 
+    public void DrawCard()
+    {
+        // find open slot in hand if any
         for (int i = 0; i < cardPositions.Length; i++)
         {
-            Debug.Log($"Checking position {i}");
             if (hand[i] == null)
             {
+                // empty deck logic
+                if (deck.cards.Count == 0)
+                {
+                    // shuffle discard into deck
+                    if (graveyard.cards.Count > 0) {
+                        MoveGraveyardToDeck();
+                    } else {
+                        Debug.Log("No cards left to draw");
+                        return;
+                    }
+
+                }
                 Card card = deck.DrawCard();
                 // Move the card GameObject to the hand position
                 card.transform.SetParent(cardPositions[i]);
@@ -44,6 +88,7 @@ public class CardManager: MonoBehaviour
                 
                 // Update card state
                 card.State = CardState.InHand;
+                card.handIndex = i;
                 
                 // Add to hand list
                 hand[i] = card;
@@ -55,6 +100,8 @@ public class CardManager: MonoBehaviour
 
         Debug.Log("Hand is full!");
     }
+
+
 
     // public void PlayCard(int handIndex)
     // {
@@ -88,14 +135,14 @@ public class CardManager: MonoBehaviour
         Card card = hand[handIndex];
         
         // Move card to discard pile
-        card.transform.SetParent(discardPile.transform);
+        card.transform.SetParent(graveyard.transform);
         card.transform.localPosition = Vector3.zero;
         
         // Update card state
-        card.State = CardState.InDiscard;
+        card.State = CardState.InGraveyard;
         
         // Add to discard pile
-        discardPile.AddCard(card);
+        graveyard.AddCard(card);
         
         // Remove from hand
         hand[handIndex] = null;
@@ -103,14 +150,17 @@ public class CardManager: MonoBehaviour
         Debug.Log($"Card {card.name} discarded");
     }
 
-    public void MoveDiscardToDeck()
+    public void MoveGraveyardToDeck()
     {
+        Debug.Log("Shuffling graveyard into deck");
         // move all cards from discard pile to deck
-        foreach (Card card in discardPile.cards)
+        // TODO: move logic to graveyard for removing all
+        while (graveyard.cards.Count > 0)
         {
-            discardPile.RemoveCard(card);
-            deck.AddToBottom(card);
-        }  
+            Card card = graveyard.cards[graveyard.cards.Count - 1];
+            graveyard.cards.RemoveAt(graveyard.cards.Count - 1);
+            deck.AddToBottom(card); 
+        }
         deck.Shuffle();
     }
 

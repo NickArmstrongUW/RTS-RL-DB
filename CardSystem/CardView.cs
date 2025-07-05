@@ -18,6 +18,7 @@ public class CardView : MonoBehaviour {
         
         if (nameText != null) {
             nameText.text = data.cardName;
+            nameText.enabled = false;
         } else {
             Debug.LogError("CardView.Initialize: nameText is null! Please assign it in the Inspector.");
         }
@@ -30,12 +31,14 @@ public class CardView : MonoBehaviour {
         
         if (descriptionText != null) {
             descriptionText.text = data.description;
+            descriptionText.enabled = false;
         } else {
             Debug.LogError("CardView.Initialize: descriptionText is null! Please assign it in the Inspector.");
         }
         
         if (costText != null) {
             costText.text = data.cost.ToString();
+            costText.enabled = false;
         } else {
             Debug.LogError("CardView.Initialize: costText is null! Please assign it in the Inspector.");
         }

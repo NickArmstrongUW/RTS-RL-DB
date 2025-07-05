@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using CardSystem;
 
-public class Discard: MonoBehaviour
+public class Graveyard: MonoBehaviour
 {
     public List<Card> cards = new List<Card>();
 
@@ -23,7 +23,7 @@ public class Discard: MonoBehaviour
     // shows you what's in your graveyard
     public void OnClick()
     {
-        Debug.Log($"Discard pile contains {cards.Count} cards");
+        Debug.Log($"Graveyard contains {cards.Count} cards");
         foreach (Card card in cards)
         {
             Debug.Log($"- {card.name}");

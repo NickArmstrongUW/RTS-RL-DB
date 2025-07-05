@@ -5,3 +5,21 @@ Enemy Spawner
 Mana regen, spell costs
 Mana UI
 Click Spells to play them
+Get card cost to show up in the right place
+Move Deck and Graveyard UI out of card slots, add Burn Pile
+Make Graveyard and Burn Pile selectable
+Add hand size variable, adjust card slots to cover the entire bar and then only load cards up to max hand size
+Add spell Queue and Spell Queue UI
+Add spell dequeuing
+Add spell cancelling with right click or escape
+Add hotkeys for drawing and playing spells
+Make Aim Preview look prettier
+
+
+Game Modes:
+- Quick:
+    - Duel - fight another wizard
+    - Hunt - Kill magic monsters / beasts
+- Long:
+    - Battle/Survive - Hold off hordes of enemies 
+    - Tournament - standard roguelike - fight you way through duels as you acquire boosts

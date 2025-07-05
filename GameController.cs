@@ -7,7 +7,7 @@ public class GameController: MonoBehaviour
 {
     public CardManager cardManager;
     public Deck deck;
-    public Discard discardPile;
+    public Graveyard graveyard;
     public CardFactory cardFactory;
 
     void Start()
@@ -22,6 +22,10 @@ public class GameController: MonoBehaviour
         List<Card> cardList = new List<Card>();
         
         // Create cards using the factory
+        cardList.Add(cardFactory.CreateCard(CardType.Fireball));
+        cardList.Add(cardFactory.CreateCard(CardType.Fireball));
+        cardList.Add(cardFactory.CreateCard(CardType.Fireball));
+        cardList.Add(cardFactory.CreateCard(CardType.Fireball));
         cardList.Add(cardFactory.CreateCard(CardType.Fireball));
         cardList.Add(cardFactory.CreateCard(CardType.Fireball));
         // cardList.Add(cardFactory.CreateCard(CardType.LightningBolt));
