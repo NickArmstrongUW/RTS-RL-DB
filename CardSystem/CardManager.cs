@@ -7,7 +7,7 @@ namespace CardSystem {
 public class CardManager: MonoBehaviour
 {
 
-    public static CardSystem.CardManager instance;
+    public static CardSystem.CardManager Instance;
 
     public List<Card> hand;
     public int handSize=5;
@@ -20,18 +20,30 @@ public class CardManager: MonoBehaviour
     // public Button deckButton;
 
     public void Awake() {
-        instance = this;
+        Instance = this;
         spellQueue = new Queue<Card>();
-    }
-
-    private void Start()
-    {
         hand = new List<Card>();
-        for (int i = 0; i < handSize; i++)
-        {
+        for (int i = 0; i < handSize; i++) {
             hand.Add(null);
         }
-        // deckButton.onClick.AddListener(DrawCard);
+    }
+
+    public void DrawHand(){
+        ReturnHandToDeck();
+        for (int i = 0; i < handSize; i++)
+        {
+            DrawCard();
+        }
+    }
+
+    public void ReturnHandToDeck(){
+        for (int i = 0; i < handSize; i++)
+        {
+            if (hand[i] != null) {
+                ReturnCardToDeck(i);
+            }
+        }
+        deck.Shuffle();
     }
 
     // callback for when a spell is played, queues the next spell
@@ -40,6 +52,8 @@ public class CardManager: MonoBehaviour
         // play next spell in queue if any
         if (spellQueue.Count > 0) {
             spellQueue.Peek().Play(SpellCallback);
+        } else {
+            Debug.Log("No more spells to play");
         }
     }
 
@@ -52,6 +66,7 @@ public class CardManager: MonoBehaviour
         }
         // add spell to queue
         Card card = hand[handIndex];
+        Debug.Log($"Queueing card {card.name}");
         spellQueue.Enqueue(card);
         // move card to discard pile
         DiscardCard(handIndex);
@@ -64,7 +79,7 @@ public class CardManager: MonoBehaviour
     public void DrawCard()
     {
         // find open slot in hand if any
-        for (int i = 0; i < cardPositions.Length; i++)
+        for (int i = 0; i < handSize; i++)
         {
             if (hand[i] == null)
             {

@@ -9,10 +9,13 @@ public class GameController: MonoBehaviour
     public Deck deck;
     public Graveyard graveyard;
     public CardFactory cardFactory;
+    public MouseDirectionSelector mouseDirectionSelector;
+    public SimpleClickSelector simpleClickSelector;
 
     void Start()
     {
         StartGame();
+        
     }
 
     public void StartGame()
@@ -28,10 +31,16 @@ public class GameController: MonoBehaviour
         cardList.Add(cardFactory.CreateCard(CardType.Fireball));
         cardList.Add(cardFactory.CreateCard(CardType.Fireball));
         cardList.Add(cardFactory.CreateCard(CardType.Fireball));
+        cardList.Add(cardFactory.CreateCard(CardType.Restore));
+        cardList.Add(cardFactory.CreateCard(CardType.Restore));
+        cardList.Add(cardFactory.CreateCard(CardType.Restore));
+        cardList.Add(cardFactory.CreateCard(CardType.Restore));
         // cardList.Add(cardFactory.CreateCard(CardType.LightningBolt));
         // cardList.Add(cardFactory.CreateCard(CardType.Heal));
         
         deck.Initialize(cardList);
         deck.Shuffle();
+
+        cardManager.DrawHand();
     }
 }

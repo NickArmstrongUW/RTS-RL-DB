@@ -1,12 +1,19 @@
 using UnityEngine;
 using System.Collections;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Damageable
 {
-    public int health;
-    public int damage;
     public int speed;
     public int attackRange;
-    public int attackCooldown;
-    public int attackDamage;
+    public float attackCooldown;
+    public float baseDamage;
+    public float damageModifier = 1f;
+    public float attackSpeed;
+
+
+
+    public virtual void Die() {
+        Debug.Log("Enemy Died");
+        Destroy(gameObject);
+    }
 }

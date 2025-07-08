@@ -1,19 +1,19 @@
 Change CardFactory to use a lookup table / dictionary to load in cards, and then instantiate deck
-Fireball card effects
-Health and Shield HUD
 Enemy Spawner
 Mana regen, spell costs
 Mana UI
-Click Spells to play them
-Get card cost to show up in the right place
-Move Deck and Graveyard UI out of card slots, add Burn Pile
-Make Graveyard and Burn Pile selectable
+Make Graveyard and Burn Pile selectable - View cards inside
 Add hand size variable, adjust card slots to cover the entire bar and then only load cards up to max hand size
-Add spell Queue and Spell Queue UI
+Add spell Spell Queue UI
 Add spell dequeuing
 Add spell cancelling with right click or escape
 Add hotkeys for drawing and playing spells
-Make Aim Preview look prettier
+Make Aim Preview look prettier - probably change to sprite instead of line renderer
+Add damage types, fire does more damage to health, electric to shields
+Add damage type resistances
+Add Card Highlighting
+Add in cast time for spells
+Add in spell casting animation / progress bar
 
 
 Game Modes:

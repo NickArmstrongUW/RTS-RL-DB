@@ -1,5 +1,7 @@
 using UnityEngine;
 using System;
+using System.Threading.Tasks;
+
 
 namespace CardSystem
 {
@@ -35,23 +37,28 @@ namespace CardSystem
             callback(this);
         }
 
-        // built to be overriden by card on
-        // handles card targeting and other specific effects
-        public void PreCast() {
-            Debug.Log($"PreCast {name}");
-            data.PreCast(this);
-        }
+
 
         // user selects a card to play
         // Handle card targeting
         //Place in spell queue if there is space
-        public void OnClick() {
+        public async void OnClick() {
             if (State == CardState.InHand) {
-                PreCast();
-                if (CardManager.instance != null) {
-                    CardManager.instance.QueueCard(handIndex);
-                } else {
-                    Debug.Log("CardManager instance not found");
+                // TODO impliment this
+                // SetHighlight(true);
+                // DisableButton();
+
+                try {
+                    await data.PreCast(this);
+                    if (CardManager.Instance != null) {
+                        CardManager.Instance.QueueCard(handIndex);
+                    } else {
+                        Debug.Log("CardManager instance not found");
+                    }
+                } finally {
+                    Debug.Log("PreCast finished");
+                //     SetHighlight(false);
+                //     EnableButton();
                 }
             } else {
                 Debug.Log($"Cannot play {name} in state {State}");

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using CardSystem;
+using System.Threading.Tasks;
 
 namespace Cards
 {
@@ -9,21 +10,37 @@ namespace Cards
     {
         public FireballSpell fireballSpellPrefab;
         public Vector2 direction;
-        public MouseDirectionSelector directionSelector;
+        public float baseDamage = 5f;
+        public Vector2 spawnOffset = new Vector2(0.5f, 0.5f);
+
 
         public override void Activate(Card cardInstance) {
             Debug.Log("Fireball played");
-            FireballSpell spell = Instantiate(fireballSpellPrefab, Player.instance.location.position, Quaternion.identity);
-            spell.Cast(direction);
+            Vector2 spawnPos = Player.Instance.location.position + (Vector3)spawnOffset;
+            FireballSpell spell = Instantiate(fireballSpellPrefab, spawnPos, Quaternion.identity);
+            Debug.Log("base damage: " + baseDamage);
+            float damage = baseDamage + (2 * cardInstance.data.level);
+            Debug.Log("Fireball damage: " + damage);
+            spell.Cast(direction, damage);
         }
 
-        public override void PreCast(Card cardInstance) {
+        public override async Task PreCast(Card cardInstance) {
             Debug.Log("Fireball pre-cast");
-            directionSelector.BeginSelection(Player.instance.location, OnDirectionSelected);
+            direction = await GetDirectionFromUser();
+            Debug.Log("Fireball direction set: " + direction);
         }
 
-        private void OnDirectionSelected(Vector2 dir) {
-            this.direction = dir;
+        private async Task<Vector2> GetDirectionFromUser() {
+            // Create a TaskCompletionSource to wait for the callback
+            var tcs = new TaskCompletionSource<Vector2>();
+            
+            MouseDirectionSelector.Instance.BeginSelection(
+                Player.Instance.location, 
+                (direction) => tcs.SetResult(direction)
+            );
+            
+            // Wait for the user to select a direction
+            return await tcs.Task;
         }
     }
 }
