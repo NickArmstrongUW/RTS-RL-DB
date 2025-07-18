@@ -18,8 +18,8 @@ public class HextrapSpell: MonoBehaviour
         stunDuration = duration;
         this.damage = damage;
     }
-
-     public void OnTriggerEnter2D(Collider2D other) {
+    
+    public void OnTriggerEnter2D(Collider2D other) {
         // Debug.Log("Fireball hit " + other.name);
         other.GetComponent<Enemy>().Stun(stunDuration);
         if(damage > 0) {

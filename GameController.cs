@@ -9,6 +9,7 @@ public class GameController: MonoBehaviour
     public Deck deck;
     public Graveyard graveyard;
     public CardFactory cardFactory;
+    public EnemySpawner enemySpawner;
 
     // position selectors for easy access by cards
     public MouseDirectionSelector mouseDirectionSelector;

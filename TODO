@@ -17,11 +17,13 @@ Add Card - Summon Wall
 Update enemy AI to draw from enemy base class
 ADD UI to cards to show spell cost
 change cards to return a bool so you can't cast restore if you have full health - or some other implementation
-
+Add attack animation to slime
+slow down enemy spawns so they don't all come at the same time, more gradual and one by one
+match slime movement to jump animation
 
 Current:
+fix hextrap so it actually registers hitting the enemy
 Add cursor logic to MousePositionSelector based on the spell being cast
-Add enemy spawner with basic slime
 
 
 
