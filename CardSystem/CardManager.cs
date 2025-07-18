@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using CardSystem;
+using TMPro;
 
 namespace CardSystem {
 public class CardManager: MonoBehaviour
@@ -17,7 +18,10 @@ public class CardManager: MonoBehaviour
     public Graveyard graveyard;
     public Queue<Card> spellQueue;
     public int maxSpellQueueSize = 3;
+    public int drawCost = 1;
     // public Button deckButton;
+
+    public TextMeshProUGUI drawCostText;
 
     public void Awake() {
         Instance = this;
@@ -26,13 +30,15 @@ public class CardManager: MonoBehaviour
         for (int i = 0; i < handSize; i++) {
             hand.Add(null);
         }
+        drawCostText.text = drawCost.ToString();
+
     }
 
     public void DrawHand(){
         ReturnHandToDeck();
         for (int i = 0; i < handSize; i++)
         {
-            DrawCard();
+            DrawCard(true);
         }
     }
 
@@ -76,8 +82,12 @@ public class CardManager: MonoBehaviour
         }
     }
 
-    public void DrawCard()
+    public void DrawCard(bool isFree = false)
     {
+        if (!isFree && Player.Instance.currentMana < drawCost) {
+            Debug.Log("Not enough mana to draw");
+            return;
+        }
         // find open slot in hand if any
         for (int i = 0; i < handSize; i++)
         {
@@ -107,8 +117,11 @@ public class CardManager: MonoBehaviour
                 
                 // Add to hand list
                 hand[i] = card;
-                
+                if (!isFree) {
+                    Player.Instance.spendMana(drawCost);
+                }
                 Debug.Log($"Card {card.name} drawn to position {i}");
+
                 return;
             }
         }
@@ -116,28 +129,6 @@ public class CardManager: MonoBehaviour
         Debug.Log("Hand is full!");
     }
 
-
-
-    // public void PlayCard(int handIndex)
-    // {
-    //     if (handIndex < 0 || handIndex >= hand.Count || hand[handIndex] == null)
-    //     {
-    //         Debug.Log("Invalid card index or no card at position");
-    //         return;
-    //     }
-
-    //     Card card = hand[handIndex];
-    //     card.State = CardState.Casting;
-
-    //     // wait for cast time
-    //     yield return new WaitForSeconds(card.castTime);
-        
-    //     // Execute card effect
-    //     card.Play();
-        
-    //     // Move to discard pile
-    //     DiscardCard(handIndex);
-    // }
 
     public void DiscardCard(int handIndex)
     {
@@ -206,6 +197,11 @@ public class CardManager: MonoBehaviour
         hand[handIndex] = null;
         
         Debug.Log($"Card {card.name} returned to deck");
+    }
+
+    public void updateDrawCost(int newCost){
+        drawCost = newCost;
+        drawCostText.text = drawCost.ToString();
     }
 }
 }

@@ -3,9 +3,11 @@ using System;
 using CardSystem;
 using System.Threading.Tasks;
 
+// 1
+
 namespace Cards
 {
-    [CreateAssetMenu(menuName = "Cards/Fireball")]
+    [CreateAssetMenu(menuName = "Card/Fireball")]
     public class FireballCard: CardData
     {
         public FireballSpell fireballSpellPrefab;
@@ -18,16 +20,13 @@ namespace Cards
             Debug.Log("Fireball played");
             Vector2 spawnPos = Player.Instance.location.position + (Vector3)spawnOffset;
             FireballSpell spell = Instantiate(fireballSpellPrefab, spawnPos, Quaternion.identity);
-            Debug.Log("base damage: " + baseDamage);
             float damage = baseDamage + (2 * cardInstance.data.level);
-            Debug.Log("Fireball damage: " + damage);
+            // Debug.Log("Fireball damage: " + damage)
             spell.Cast(direction, damage);
         }
 
         public override async Task PreCast(Card cardInstance) {
-            Debug.Log("Fireball pre-cast");
             direction = await GetDirectionFromUser();
-            Debug.Log("Fireball direction set: " + direction);
         }
 
         private async Task<Vector2> GetDirectionFromUser() {

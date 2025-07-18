@@ -15,7 +15,7 @@ public class EvilWizard : Enemy
         shield = 12;
         damageResistance = 0.1f;
         damageNegation = 1;
-        attackSpeed = 0.5f;
+        attackSpeed = 0.25f;
         attackRange = 5;
         baseDamage = 5;
         location = transform;

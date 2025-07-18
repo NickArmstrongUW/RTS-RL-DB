@@ -1,5 +1,4 @@
 Change CardFactory to use a lookup table / dictionary to load in cards, and then instantiate deck
-Enemy Spawner
 Mana regen, spell costs
 Mana UI
 Make Graveyard and Burn Pile selectable - View cards inside
@@ -14,6 +13,16 @@ Add damage type resistances
 Add Card Highlighting
 Add in cast time for spells
 Add in spell casting animation / progress bar
+Add Card - Summon Wall
+Update enemy AI to draw from enemy base class
+ADD UI to cards to show spell cost
+change cards to return a bool so you can't cast restore if you have full health - or some other implementation
+
+
+Current:
+Add cursor logic to MousePositionSelector based on the spell being cast
+Add enemy spawner with basic slime
+
 
 
 Game Modes:

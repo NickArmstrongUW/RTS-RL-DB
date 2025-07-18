@@ -9,8 +9,11 @@ public class GameController: MonoBehaviour
     public Deck deck;
     public Graveyard graveyard;
     public CardFactory cardFactory;
+
+    // position selectors for easy access by cards
     public MouseDirectionSelector mouseDirectionSelector;
     public SimpleClickSelector simpleClickSelector;
+    public MousePositionSelector MousePositionSelector;
 
     void Start()
     {
@@ -34,7 +37,13 @@ public class GameController: MonoBehaviour
         cardList.Add(cardFactory.CreateCard(CardType.Restore));
         cardList.Add(cardFactory.CreateCard(CardType.Restore));
         cardList.Add(cardFactory.CreateCard(CardType.Restore));
-        cardList.Add(cardFactory.CreateCard(CardType.Restore));
+        cardList.Add(cardFactory.CreateCard(CardType.Shield));
+        cardList.Add(cardFactory.CreateCard(CardType.Shield));
+        cardList.Add(cardFactory.CreateCard(CardType.Shield));
+        cardList.Add(cardFactory.CreateCard(CardType.Shield));
+        cardList.Add(cardFactory.CreateCard(CardType.Hextrap));
+        cardList.Add(cardFactory.CreateCard(CardType.Hextrap));
+        cardList.Add(cardFactory.CreateCard(CardType.Hextrap));
         // cardList.Add(cardFactory.CreateCard(CardType.LightningBolt));
         // cardList.Add(cardFactory.CreateCard(CardType.Heal));
         

@@ -73,7 +73,7 @@ public class Damageable : MonoBehaviour
         UpdateHealthBar();
     }
     
-    public virtual void RestoreShield(float amount) {
+    public virtual void GainShields(float amount) {
         shield += amount;
         if (shield > maxShield) {
             shield = maxShield;

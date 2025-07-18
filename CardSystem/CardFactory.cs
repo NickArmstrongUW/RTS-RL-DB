@@ -23,17 +23,9 @@ namespace CardSystem {
             {
                 GameObject cardObject = Instantiate(cardPrefab);
                 Card card = cardObject.GetComponent<Card>();
-                // TODO: need to make a new cardview from cardData
-                CardView view = cardObject.GetComponent<CardView>();
                 
                 // Initialize the card with data
                 card.Initialize(typeData.data);
-                
-                // Initialize the view
-                if (view != null)
-                {
-                    view.Initialize(typeData.data);
-                }
                 
                 return card;
             }

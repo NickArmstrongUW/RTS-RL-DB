@@ -6,21 +6,16 @@ using CardSystem;
 namespace CardSystem {
 public class CardView : MonoBehaviour {
     public Image artworkImage;
-    public TextMeshProUGUI nameText;
-    public TextMeshProUGUI descriptionText;
     public TextMeshProUGUI costText;
+    
+    private Card card; // Reference to the Card component
 
-    public void Initialize(CardData data) {
+    public void Initialize(CardData data, Card cardComponent) {
+        this.card = cardComponent;
+        
         if (data == null) {
             Debug.LogError("CardView.Initialize: CardData is null!");
             return;
-        }
-        
-        if (nameText != null) {
-            nameText.text = data.cardName;
-            nameText.enabled = false;
-        } else {
-            Debug.LogError("CardView.Initialize: nameText is null! Please assign it in the Inspector.");
         }
         
         if (artworkImage != null) {
@@ -29,18 +24,15 @@ public class CardView : MonoBehaviour {
             Debug.LogError("CardView.Initialize: artworkImage is null! Please assign it in the Inspector.");
         }
         
-        if (descriptionText != null) {
-            descriptionText.text = data.description;
-            descriptionText.enabled = false;
-        } else {
-            Debug.LogError("CardView.Initialize: descriptionText is null! Please assign it in the Inspector.");
-        }
-        
+        UpdateCostDisplay(data.cost);
+    }
+    
+    public void UpdateCostDisplay(int newCost) {
         if (costText != null) {
-            costText.text = data.cost.ToString();
-            costText.enabled = false;
+            costText.text = newCost.ToString();
+            costText.enabled = true; // Make sure it's visible
         } else {
-            Debug.LogError("CardView.Initialize: costText is null! Please assign it in the Inspector.");
+            Debug.LogError("CardView.UpdateCostDisplay: costText is null! Please assign it in the Inspector.");
         }
     }
 }

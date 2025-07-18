@@ -17,7 +17,7 @@ public class FireballSpell: MonoBehaviour
 
     public void Cast(Vector2 dir, float damage) {
         this.damage = damage;
-        Debug.Log("Casting fireball with damage: " + damage);
+        // Debug.Log("Casting fireball with damage: " + damage);
         if (rb == null) {
             Debug.LogError("Rigidbody2D is null!");
             return;
@@ -34,7 +34,7 @@ public class FireballSpell: MonoBehaviour
     // }
 
     public void OnTriggerEnter2D(Collider2D other) {
-        Debug.Log("Fireball hit " + other.name);
+        // Debug.Log("Fireball hit " + other.name);
         other.GetComponent<Damageable>().TakeDamage(damage);
         Destroy(gameObject);
     }

@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using CardSystem;
+using TMPro;
 
 public class Deck: MonoBehaviour
 {
@@ -9,9 +10,12 @@ public class Deck: MonoBehaviour
     public List<Card> cards;
     public Transform deckCardsPosition;
 
+    public TextMeshProUGUI deckCount;
+
     public void Initialize(List<Card> cards)
     {
         this.cards = cards;
+        deckCount.text = cards.Count.ToString();
     }
 
     // pulls the next card from the deck and returns it
@@ -21,6 +25,7 @@ public class Deck: MonoBehaviour
         if (cards == null)
         {
             Debug.Log("Deck is empty!");
+            deckCount.text = "0";
             return null;
         }
         if (cards.Count > 0)
@@ -28,6 +33,7 @@ public class Deck: MonoBehaviour
             Card card = cards[0];
             cards.RemoveAt(0);
             Debug.Log("Drew card: " + card.name);
+            deckCount.text = cards.Count.ToString();
             return card;
         }
         return null;
@@ -85,19 +91,12 @@ public class Deck: MonoBehaviour
                 cards[i] = cards[randomIndex];
                 cards[randomIndex] = temp;
             }
+            deckCount.text = cards.Count.ToString();
         }
         
         if (nullCardsRemoved > 0)
         {
             Debug.Log($"Removed {nullCardsRemoved} null cards during shuffle");
-        }
-        
-        Debug.Log($"Deck shuffled successfully! {cards.Count} cards in deck");
-        
-        // Optional: Log the new order
-        for (int i = 0; i < Mathf.Min(5, cards.Count); i++)
-        {
-            Debug.Log($"Top {i + 1}: {cards[i].name}");
         }
     }
 
@@ -107,6 +106,7 @@ public class Deck: MonoBehaviour
         card.transform.SetParent(deckCardsPosition);
         card.transform.localPosition = Vector3.zero;
         card.transform.localRotation = Quaternion.identity;
+        deckCount.text = cards.Count.ToString();
     }
 
     public void AddToTop(Card card)
@@ -115,6 +115,7 @@ public class Deck: MonoBehaviour
         card.transform.SetParent(deckCardsPosition);
         card.transform.localPosition = Vector3.zero;
         card.transform.localRotation = Quaternion.identity;
+        deckCount.text = cards.Count.ToString();
     }
 
     // potentially change to scry to view x top cards

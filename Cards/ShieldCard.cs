@@ -3,23 +3,23 @@ using System;
 using CardSystem;
 using System.Threading.Tasks;
 
-// 2
+// 3
 
 namespace Cards
 {
-    [CreateAssetMenu(menuName = "Card/Restore")]
-    public class RestoreCard: CardData
+    [CreateAssetMenu(menuName = "Card/Shield")]
+    public class ShieldCard: CardData
     {
-        public float baseHealing = 5f;
+        public float baseShield = 8f;
 
         public void Awake() {
-            name = "Restore";
+            name = "Shield";
             // TODO update to show exact amount of health restored
-            description = $"Restore health";
+            description = $"Gain shields";
         }
 
          public override async Task PreCast(Card cardInstance) {
-            Debug.Log("Restore pre-cast");
+            Debug.Log("Shield pre-cast");
             await WaitForUserClick();
         }
 
@@ -31,10 +31,9 @@ namespace Cards
             await tcs.Task;
         }
 
-        public override void Activate(Card cardInstance) 
-        {
-            Debug.Log("Restore activated");
-            Player.Instance.RestoreHealth(baseHealing + (5 * cardInstance.data.level));
+        public override void Activate(Card cardInstance) {
+            Debug.Log("Shield activated");
+            Player.Instance.GainShields(baseShield + (2 * cardInstance.data.level));
         }
     }
 }
