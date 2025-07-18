@@ -33,14 +33,23 @@ namespace Cards
             // Create a TaskCompletionSource to wait for the callback
             var tcs = new TaskCompletionSource<Vector2>();
             
+            // Get the sprite from the HextrapSpell prefab
+            Sprite trapSprite = null;
+            if (HextrapSpellPrefab != null) {
+                SpriteRenderer spriteRenderer = HextrapSpellPrefab.GetComponent<SpriteRenderer>();
+                if (spriteRenderer != null) {
+                    trapSprite = spriteRenderer.sprite;
+                }
+            }
+            
             MousePositionSelector.Instance.BeginSelection(
-                (spawnPos) => tcs.SetResult(spawnPos)
+                (spawnPos) => tcs.SetResult(spawnPos),
+                showPreview: true,
+                customSprite: trapSprite
             );
             
-            // Wait for the user to select a direction
+            // Wait for the user to select a position
             return await tcs.Task;
         }
-
-
     }
 }

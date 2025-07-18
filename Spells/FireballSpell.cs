@@ -5,12 +5,10 @@ public class FireballSpell: MonoBehaviour
 {
     public float travelSpeed = 5f;
     private Rigidbody2D rb;
-    private Collider2D col;
     public float damage;
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
-        col = GetComponent<Collider2D>();
         rb.linearDamping = 0f;           // Linear drag
         rb.angularDamping = 0f;  
     }

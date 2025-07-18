@@ -1,6 +1,4 @@
 Change CardFactory to use a lookup table / dictionary to load in cards, and then instantiate deck
-Mana regen, spell costs
-Mana UI
 Make Graveyard and Burn Pile selectable - View cards inside
 Add hand size variable, adjust card slots to cover the entire bar and then only load cards up to max hand size
 Add spell Spell Queue UI
@@ -14,16 +12,17 @@ Add Card Highlighting
 Add in cast time for spells
 Add in spell casting animation / progress bar
 Add Card - Summon Wall
-Update enemy AI to draw from enemy base class
-ADD UI to cards to show spell cost
 change cards to return a bool so you can't cast restore if you have full health - or some other implementation
 Add attack animation to slime
 slow down enemy spawns so they don't all come at the same time, more gradual and one by one
 match slime movement to jump animation
+Improve either hextrap hitbox detection or slime hurtboxes to make hitting enemies more consistent
+Update Card UI so when a card is selected it's obvious to the user
 
 Current:
-fix hextrap so it actually registers hitting the enemy
+Blink Spell
 Add cursor logic to MousePositionSelector based on the spell being cast
+Add Hotkeys
 
 
 

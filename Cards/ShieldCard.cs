@@ -20,9 +20,10 @@ namespace Cards
 
          public override async Task PreCast(Card cardInstance) {
             Debug.Log("Shield pre-cast");
-            await WaitForUserClick();
+            // await WaitForUserClick();
         }
 
+        // no longer using, keeping code in case it gets brought back. Maybe as a setting
         private async Task WaitForUserClick() {
             var tcs = new TaskCompletionSource<bool>();
             

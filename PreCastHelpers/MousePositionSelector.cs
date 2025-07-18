@@ -37,6 +37,9 @@ public class MousePositionSelector : MonoBehaviour
         onPositionChosen = callback;
         isSelecting = true;
         
+        // Hide the system cursor
+        Cursor.visible = false;
+        
         if (previewSprite != null)
         {
             previewSprite.SetActive(showPreview);
@@ -58,6 +61,7 @@ public class MousePositionSelector : MonoBehaviour
         Vector3 mouseWorld = mainCamera.ScreenToWorldPoint(mouse.position.ReadValue());
         mouseWorld.z = 0; // Or whatever your game uses
 
+        // Update preview sprite position to follow mouse
         if (previewSprite != null && previewSprite.activeSelf)
             previewSprite.transform.position = mouseWorld;
 
@@ -66,6 +70,10 @@ public class MousePositionSelector : MonoBehaviour
             isSelecting = false;
             if (previewSprite != null)
                 previewSprite.SetActive(false);
+            
+            // Show the system cursor again
+            Cursor.visible = true;
+            
             onPositionChosen?.Invoke(mouseWorld);
         }
     }
