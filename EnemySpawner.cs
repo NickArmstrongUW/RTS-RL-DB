@@ -12,7 +12,7 @@ public class EnemySpawner: MonoBehaviour
     public GameObject enemyPrefab; // for now just one that we'll spawn in
     public float spawnDistance; // how far away from the player we spawn, could use min and max spawn distances instead
     public static EnemySpawner Instance; // for enemies to call into when they die, however could instead have enemies remember which spawner spawned them should we do multiple
-    public float spawnRadius = 45f; // how many +/- degrees from directly in front of the user enemies can spawn
+    public float spawnRadius = 60f; // how many +/- degrees from directly in front of the user enemies can spawn
 
     // strategies for enemy spawns
 
@@ -28,7 +28,7 @@ public class EnemySpawner: MonoBehaviour
         Camera mainCamera = Camera.main;
         float screenHeight = 2f * mainCamera.orthographicSize;
         float screenWidth = screenHeight * mainCamera.aspect;
-        spawnDistance = Mathf.Max(screenWidth, screenHeight) * 0.6f;
+        spawnDistance = Mathf.Max(screenWidth, screenHeight) * 0.5f;
     }
 
 

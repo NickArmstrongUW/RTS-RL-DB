@@ -4,14 +4,12 @@ Add hand size variable, adjust card slots to cover the entire bar and then only 
 Add spell Spell Queue UI
 Add spell dequeuing
 Add spell cancelling with right click or escape
-Add hotkeys for drawing and playing spells
 Make Aim Preview look prettier - probably change to sprite instead of line renderer
 Add damage types, fire does more damage to health, electric to shields
 Add damage type resistances
 Add Card Highlighting
 Add in cast time for spells
 Add in spell casting animation / progress bar
-Add Card - Summon Wall
 change cards to return a bool so you can't cast restore if you have full health - or some other implementation
 Add attack animation to slime
 slow down enemy spawns so they don't all come at the same time, more gradual and one by one
@@ -20,9 +18,8 @@ Improve either hextrap hitbox detection or slime hurtboxes to make hitting enemi
 Update Card UI so when a card is selected it's obvious to the user
 
 Current:
+Update Cursor logic to factor in maximum range and give visual feedback
 Blink Spell
-Add cursor logic to MousePositionSelector based on the spell being cast
-Add Hotkeys
 
 
 
@@ -33,3 +30,11 @@ Game Modes:
 - Long:
     - Battle/Survive - Hold off hordes of enemies 
     - Tournament - standard roguelike - fight you way through duels as you acquire boosts
+
+
+
+Cards to add next:
+
+Summon Wall - Damageable wall that blocks enemies and projectiles, but also takes damage from player projectiles
+Chain Lightning - Target an initial enemy and it will bounce between dealing damage
+Magic Missile - 1 cost spell that does a very small amount of damage
