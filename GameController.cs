@@ -45,6 +45,11 @@ public class GameController: MonoBehaviour
         cardList.Add(cardFactory.CreateCard(CardType.Hextrap));
         cardList.Add(cardFactory.CreateCard(CardType.Hextrap));
         cardList.Add(cardFactory.CreateCard(CardType.Hextrap));
+        cardList.Add(cardFactory.CreateCard(CardType.Blink));
+        cardList.Add(cardFactory.CreateCard(CardType.Blink));
+        cardList.Add(cardFactory.CreateCard(CardType.Blink));
+        cardList.Add(cardFactory.CreateCard(CardType.Blink));
+
         // cardList.Add(cardFactory.CreateCard(CardType.LightningBolt));
         // cardList.Add(cardFactory.CreateCard(CardType.Heal));
         

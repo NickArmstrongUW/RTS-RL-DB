@@ -14,6 +14,9 @@ public class MousePositionSelector : MonoBehaviour
     private SpriteRenderer spriteRenderer; // to use if a function doesn't have a custom
     public Sprite defaultSprite;
 
+    private float maxDistance = float.PositiveInfinity; // for spells that have a casting range
+    private Vector3? referencePoint = null; // nullable Vector3
+
     void Awake()
     {
         mainCamera = Camera.main;
@@ -32,17 +35,31 @@ public class MousePositionSelector : MonoBehaviour
         }
     }
 
-    public void BeginSelection(Action<Vector2> callback, bool showPreview = true, Sprite customSprite = null)
+    // starts mouse tracking, but only allows for selection within a certain distance from a reference point
+    public void BeginSelection(
+        Action<Vector2> callback, 
+        float maxDistance, 
+        Vector3 referencePoint, 
+        Sprite customSprite = null)
+    {
+
+        this.maxDistance = maxDistance;
+        this.referencePoint = referencePoint;
+
+        BeginSelection(callback, customSprite);
+    }
+
+    // initializes mouse tracking, will return the Position of the mouse to the callback function
+     public void BeginSelection(Action<Vector2> callback, Sprite customSprite = null)
     {
         onPositionChosen = callback;
         isSelecting = true;
-        
         // Hide the system cursor
         Cursor.visible = false;
         
         if (previewSprite != null)
         {
-            previewSprite.SetActive(showPreview);
+            previewSprite.SetActive(true);
             
             // Update the sprite if a custom one is provided
             if (customSprite != null && spriteRenderer != null)
@@ -54,6 +71,7 @@ public class MousePositionSelector : MonoBehaviour
         }
     }
 
+
     void Update()
     {
         if (!isSelecting) return;
@@ -61,11 +79,24 @@ public class MousePositionSelector : MonoBehaviour
         Vector3 mouseWorld = mainCamera.ScreenToWorldPoint(mouse.position.ReadValue());
         mouseWorld.z = 0; // Or whatever your game uses
 
+        float refDistance = 0f;
+        if (referencePoint.HasValue) {
+            refDistance = Vector3.Distance(mouseWorld, referencePoint.Value);
+        }
+
         // Update preview sprite position to follow mouse
         if (previewSprite != null && previewSprite.activeSelf)
+        {
             previewSprite.transform.position = mouseWorld;
+            if (refDistance > maxDistance) {
+                spriteRenderer.color = Color.red;
+            }
+            else {
+                spriteRenderer.color = Color.white; // Reset to normal color
+            }
+        }
 
-        if (mouse.leftButton.wasPressedThisFrame)
+        if (mouse.leftButton.wasPressedThisFrame && refDistance <= maxDistance)
         {
             isSelecting = false;
             if (previewSprite != null)
@@ -74,6 +105,10 @@ public class MousePositionSelector : MonoBehaviour
             // Show the system cursor again
             Cursor.visible = true;
             
+            // reset maxDistance and referencepoint
+            maxDistance = float.PositiveInfinity;
+            referencePoint = null;
+
             onPositionChosen?.Invoke(mouseWorld);
         }
     }

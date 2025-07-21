@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Enemy : Damageable
 {
-    public int attackRange;
+    public float attackRange;
     public float baseDamage;
     public float damageModifier = 1f;
     public float attackSpeed;

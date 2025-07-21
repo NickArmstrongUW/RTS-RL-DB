@@ -37,5 +37,6 @@ namespace CardSystem {
         Restore,
         Shield,
         Hextrap,
+        Blink
     } 
 }

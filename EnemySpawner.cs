@@ -28,7 +28,7 @@ public class EnemySpawner: MonoBehaviour
         Camera mainCamera = Camera.main;
         float screenHeight = 2f * mainCamera.orthographicSize;
         float screenWidth = screenHeight * mainCamera.aspect;
-        spawnDistance = Mathf.Max(screenWidth, screenHeight) * 0.5f;
+        spawnDistance = Mathf.Max(screenWidth, screenHeight) * 0.55f;
     }
 
 

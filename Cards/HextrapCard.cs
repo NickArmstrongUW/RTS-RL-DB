@@ -44,7 +44,6 @@ namespace Cards
             
             MousePositionSelector.Instance.BeginSelection(
                 (spawnPos) => tcs.SetResult(spawnPos),
-                showPreview: true,
                 customSprite: trapSprite
             );
             
