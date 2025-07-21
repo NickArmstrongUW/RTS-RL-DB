@@ -14,8 +14,9 @@ change cards to return a bool so you can't cast restore if you have full health 
 Add attack animation to slime
 slow down enemy spawns so they don't all come at the same time, more gradual and one by one
 match slime movement to jump animation
-Improve either hextrap hitbox detection or slime hurtboxes to make hitting enemies more consistent
+Improve either hextrap hitbox detection or slime hurtboxes to make hit ting enemies more consistent
 Update Card UI so when a card is selected it's obvious to the user
+Add an outline to MousePositionSelector to show how far away you can select
 
 Current:
 Update Cursor logic to factor in maximum range and give visual feedback

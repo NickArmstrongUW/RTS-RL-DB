@@ -72,10 +72,16 @@ namespace CardSystem
                 if (Player.Instance.currentMana < cost) {
                     Debug.Log("Not enough mana");
                     return;
+                } else if (Player.Instance.inPrecast) {
+                    Debug.Log("can't cast 2 spells at once");
+                    return;
                 }
 
                 try {
+                    Player.Instance.inPrecast = true;
                     await data.PreCast(this);
+                    // we may want to add this statement elsewhere in case PreCasting fails but we get stuck with this bool as true
+                    Player.Instance.inPrecast = false; 
                     if (CardManager.Instance != null) {
                         CardManager.Instance.QueueCard(handIndex);
                     } else {

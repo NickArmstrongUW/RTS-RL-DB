@@ -17,6 +17,8 @@ class Player: Damageable
     public float manaRegenTimer;
     public int startingMana = 0;
 
+    public bool inPrecast = false; // lockout so you can only precast one card at a time
+
     public TextMeshProUGUI manaText;
 
     void Awake() {
