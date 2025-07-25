@@ -15,6 +15,9 @@ public class GameController: MonoBehaviour
     public MouseDirectionSelector mouseDirectionSelector;
     public SimpleClickSelector simpleClickSelector;
     public MousePositionSelector MousePositionSelector;
+    
+    // round stats
+    public int enemyKills;
 
     void Start()
     {

@@ -11,14 +11,18 @@ Add Card Highlighting
 Add in cast time for spells
 Add in spell casting animation / progress bar
 change cards to return a bool so you can't cast restore if you have full health - or some other implementation
-Add attack animation to slime
+Replace slime with a better asset
 slow down enemy spawns so they don't all come at the same time, more gradual and one by one
-match slime movement to jump animation
 Improve either hextrap hitbox detection or slime hurtboxes to make hit ting enemies more consistent
-Update Card UI so when a card is selected it's obvious to the user
-Add an outline to MousePositionSelector to show how far away you can select
+Add a ring when using MousePositionSelector to show how far away you can select
+Add currency and currency UI
+Make a home page
+Add stat tracking
+change cardType to cardID (option but I think it's nicer)
 
 Current:
+Edit Deck Page
+    Tracking of what cards the player owns
 Update Cursor logic to factor in maximum range and give visual feedback
 Blink Spell
 
@@ -39,3 +43,10 @@ Cards to add next:
 Summon Wall - Damageable wall that blocks enemies and projectiles, but also takes damage from player projectiles
 Chain Lightning - Target an initial enemy and it will bounce between dealing damage
 Magic Missile - 1 cost spell that does a very small amount of damage
+
+
+
+
+Name Ideas;
+Archmage
+Enter the Arcane
