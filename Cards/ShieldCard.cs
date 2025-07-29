@@ -12,10 +12,11 @@ namespace Cards
     {
         public float baseShield = 8f;
 
-        public void Awake() {
+        public override void Awake() {
             name = "Shield";
             // TODO update to show exact amount of health restored
             description = $"Gain shields";
+            base.Awake();
         }
 
          public override async Task PreCast(Card cardInstance) {

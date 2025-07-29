@@ -18,7 +18,8 @@ public static class SaveSystem
         {
             Debug.LogWarning("Save file not found. Creating new PlayerData.");
             PlayerData newAccount = new PlayerData();
-            newAccount.initFreshAccount();
+            newAccount.InitFreshAccount();
+            Save(newAccount);
             return newAccount;
         }
 

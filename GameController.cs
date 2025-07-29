@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using CardSystem;
+using UnityEngine.SceneManagement;
 
 public class GameController: MonoBehaviour
 {
@@ -29,36 +30,24 @@ public class GameController: MonoBehaviour
     {
         Debug.Log("Starting game");
         
-        List<Card> cardList = new List<Card>();
-        
-        // Create cards using the factory
-        cardList.Add(cardFactory.CreateCard(CardType.Fireball));
-        cardList.Add(cardFactory.CreateCard(CardType.Fireball));
-        cardList.Add(cardFactory.CreateCard(CardType.Fireball));
-        cardList.Add(cardFactory.CreateCard(CardType.Fireball));
-        cardList.Add(cardFactory.CreateCard(CardType.Fireball));
-        cardList.Add(cardFactory.CreateCard(CardType.Fireball));
-        cardList.Add(cardFactory.CreateCard(CardType.Restore));
-        cardList.Add(cardFactory.CreateCard(CardType.Restore));
-        cardList.Add(cardFactory.CreateCard(CardType.Restore));
-        cardList.Add(cardFactory.CreateCard(CardType.Shield));
-        cardList.Add(cardFactory.CreateCard(CardType.Shield));
-        cardList.Add(cardFactory.CreateCard(CardType.Shield));
-        cardList.Add(cardFactory.CreateCard(CardType.Shield));
-        cardList.Add(cardFactory.CreateCard(CardType.Hextrap));
-        cardList.Add(cardFactory.CreateCard(CardType.Hextrap));
-        cardList.Add(cardFactory.CreateCard(CardType.Hextrap));
-        cardList.Add(cardFactory.CreateCard(CardType.Blink));
-        cardList.Add(cardFactory.CreateCard(CardType.Blink));
-        cardList.Add(cardFactory.CreateCard(CardType.Blink));
-        cardList.Add(cardFactory.CreateCard(CardType.Blink));
+        // note with the current setup if you load into the game directly for testing without 
+        // loading into the main menu it will not load the deck and break
+        if(PlayerDataManager.Instance == null) {
+            SceneManager.LoadScene("HomeMenu");
+        }
 
-        // cardList.Add(cardFactory.CreateCard(CardType.LightningBolt));
-        // cardList.Add(cardFactory.CreateCard(CardType.Heal));
-        
+        // load the player's current starting deck
+        List<Card> cardList = cardFactory.CreateDeckFromDecklist(PlayerDataManager.Instance.GetStartingDeck());        
         deck.Initialize(cardList);
         deck.Shuffle();
 
         cardManager.DrawHand();
+    }
+
+    public void EndGame()
+    {
+        Debug.Log("Game Over");
+
+        SceneManager.LoadScene("HomeMenu");
     }
 }

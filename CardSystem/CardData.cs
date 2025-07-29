@@ -19,7 +19,13 @@ namespace CardSystem {
         public Sprite cardImage;
         public int level = 1; 
         public CardRarity rarity;
+        public int stars = 0;
 
+        public virtual void Awake() {
+            // level 0 is just for cards the player doesn't have
+            // default to whatever level the player has of the card
+            // Note: Card level is now set by CardFactory when creating cards
+        }
         // what the spell queue will call into to use the card
         public virtual void Activate(Card cardInstance) {
             Debug.Log($"Activating {cardName}");

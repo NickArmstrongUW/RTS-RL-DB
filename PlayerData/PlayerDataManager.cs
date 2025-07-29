@@ -33,10 +33,25 @@ public class PlayerDataManager : MonoBehaviour
     }
 
     // returns whatever starting deck the player currently should be using
-    public List<CardType> getStartingDeck() {
+    public Decklist GetStartingDeck() {
         if (playerData != null) {
-            return playerData.currentDeck;
+            return playerData.decks[playerData.currentDeck];
         }
         return null;
+    }
+
+    // returns 0 if the player doesn't have the card
+    public int GetCardLevel(CardType cardType) {
+        if (playerData.cardLevels.ContainsKey(cardType)) {
+            return playerData.cardLevels[cardType];
+        } else {
+            playerData.cardLevels[cardType] = 0;
+            return 0;
+        }
+    }
+
+    // returns the player's card collection
+    public List<PlayerData.PlayerCardEntry> GetCollection() {
+        return playerData?.collection ?? new List<PlayerData.PlayerCardEntry>();
     }
 }

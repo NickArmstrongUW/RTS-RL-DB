@@ -12,10 +12,11 @@ namespace Cards
     {
         public float baseHealing = 5f;
 
-        public void Awake() {
+        public override void Awake() {
             name = "Restore";
             // TODO update to show exact amount of health restored
             description = $"Restore health";
+            base.Awake();
         }
 
          public override async Task PreCast(Card cardInstance) {
