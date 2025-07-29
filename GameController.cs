@@ -9,7 +9,7 @@ public class GameController: MonoBehaviour
     public CardManager cardManager;
     public Deck deck;
     public Graveyard graveyard;
-    public CardFactory cardFactory;
+    public CardFactory cardFactory => CardFactory.Instance;
     public EnemySpawner enemySpawner;
 
     // position selectors for easy access by cards

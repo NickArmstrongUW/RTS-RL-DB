@@ -14,6 +14,7 @@ public class CardDisplay : MonoBehaviour
 
     private int count;
     private PlayerData.PlayerCardEntry playerEntry;
+    private EditDeckUI editDeckUI; // Reference to parent EditDeckUI
 
     public void Setup(CardData data)
     {
@@ -35,45 +36,62 @@ public class CardDisplay : MonoBehaviour
         });
     }
 
-    public void SetupFromPlayerEntry(PlayerData.PlayerCardEntry entry)
+    public void SetupFromPlayerEntry(PlayerData.PlayerCardEntry entry, EditDeckUI parentUI = null)
     {
         playerEntry = entry;
+        editDeckUI = parentUI; // Store reference to parent
         
-        // Find the CardData for this card type to get the visual info
-        CardData cardData = FindCardDataByType(entry.cardType);
+        // decided not to have a null check here because if this is null something has gone horribly wrong and it's better to reboot
+        if (CardFactory.Instance == null) {
+            Debug.LogError("CardFactory.Instance is null! Creating a CardFactory instance.");
+            GameObject cardFactoryGO = new GameObject("CardFactory");
+            CardFactory cardFactory = cardFactoryGO.AddComponent<CardFactory>();
+        }
+        CardData cardData = CardFactory.Instance.GetCardData(entry.cardType);
         if (cardData != null) {
-            nameText.text = cardData.cardName;
+            if (cardData.cardName != null) {
+                nameText.text = cardData.cardName;
+            } else {
+                nameText.text = entry.cardType.ToString();
+            }
             artworkImage.sprite = cardData.cardImage;
         } else {
-            nameText.text = entry.cardType.ToString();
-            // You might want to set a default sprite here
+            Destroy(gameObject);
+            return;
         }
         
-        count = 0; // Start with 0 selected for deck building
+        count = entry.countOwned; // Start with 0 selected for deck building
         UpdateCountText();
 
+        // Clear any existing listeners
+        plusButton.onClick.RemoveAllListeners();
+        minusButton.onClick.RemoveAllListeners();
+
+        // adds a card to the deck
         plusButton.onClick.AddListener(() =>
+        {
+            if (count > 0) {
+                count--;
+                UpdateCountText();
+                // Call EditDeckUI to add card to deck
+                if (editDeckUI != null) {
+                    editDeckUI.AddCard(playerEntry);
+                }
+            }
+        });
+
+        // removes a card from the deck
+        minusButton.onClick.AddListener(() =>
         {
             if (count < entry.countOwned) {
                 count++;
                 UpdateCountText();
+                // Call EditDeckUI to remove card from deck
+                if (editDeckUI != null) {
+                    editDeckUI.RemoveCard(playerEntry);
+                }
             }
         });
-
-        minusButton.onClick.AddListener(() =>
-        {
-            if (count > 0) count--;
-            UpdateCountText();
-        });
-    }
-
-    private CardData FindCardDataByType(CardType cardType) {
-        // Use CardFactory to find the CardData for this card type
-        CardFactory cardFactory = FindObjectOfType<CardFactory>();
-        if (cardFactory != null) {
-            return cardFactory.GetCardData(cardType);
-        }
-        return null;
     }
 
     void UpdateCountText()

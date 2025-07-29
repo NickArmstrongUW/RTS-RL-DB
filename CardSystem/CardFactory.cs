@@ -9,6 +9,8 @@ using System;
 namespace CardSystem {
     public class CardFactory : MonoBehaviour
     {
+        public static CardFactory Instance { get; private set; }
+
         [System.Serializable]
         public class CardTypeData
         {
@@ -28,6 +30,14 @@ namespace CardSystem {
         public GameObject cardPrefab;
 
         private void Awake() {
+            if (Instance != null) {
+                Destroy(gameObject);
+                return;
+            }
+
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+
             // Populate the dictionary from the inspector list
             PopulateCardTypesDictionary();
         }

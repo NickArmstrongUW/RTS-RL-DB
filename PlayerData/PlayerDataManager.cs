@@ -54,4 +54,9 @@ public class PlayerDataManager : MonoBehaviour
     public List<PlayerData.PlayerCardEntry> GetCollection() {
         return playerData?.collection ?? new List<PlayerData.PlayerCardEntry>();
     }
+
+    public void UpdateDeck(Decklist deck) {
+        playerData.decks[playerData.currentDeck] = deck;
+        Save();
+    }
 }

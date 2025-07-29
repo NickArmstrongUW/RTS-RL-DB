@@ -41,7 +41,7 @@ public class Enemy : Damageable
             MoveTowardsPlayer();
         } else {
         // TODO: handle attack range and movement
-            if (attackSpeed == null || attackSpeed == 0) {
+            if (attackSpeed == 0) {
                 return;
             }
             attackTimer -= Time.deltaTime;

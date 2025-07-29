@@ -20,6 +20,7 @@ Add stat tracking
 change cardType to cardID (option but I think it's nicer)
 Adjust screen and enemy spawns for a more mobile friendly layout? (Tall and vertical)
 Add research section with DeckPresets and ExtraCardSlots - Alchemy?
+Make real sprites for UI assets so they don't look like shit
 
 Current:
 Edit Deck Page

@@ -13,7 +13,7 @@ public class PlayerData
         public CardType cardType;
         public int countOwned;
         public int level = 1;
-        // public int stars; // will be adding this later
+        public int stars = 0; // Add stars support
     }
 
     public static readonly List<CardType> initialCards = new List<CardType> {

@@ -1,11 +1,47 @@
 using UnityEngine;
 using System.Collections.Generic;
 using CardSystem;
+using System;
 
 [System.Serializable]
-public class Decklist {
+public class Decklist : ISerializationCallbackReceiver {
     public Dictionary<CardType, Dictionary<int, int>> contents = new();
     public int size;
+
+    // Serialization helpers for Unity's JsonUtility
+    [System.Serializable]
+    public class CardEntry {
+        public CardType cardType;
+        public int stars;
+        public int amount;
+    }
+    
+    [SerializeField] private List<CardEntry> serializedContents = new();
+
+    public void OnBeforeSerialize() {
+        serializedContents.Clear();
+        foreach (var cardEntry in contents) {
+            foreach (var starEntry in cardEntry.Value) {
+                serializedContents.Add(new CardEntry {
+                    cardType = cardEntry.Key,
+                    stars = starEntry.Key,
+                    amount = starEntry.Value
+                });
+            }
+        }
+    }
+
+    public void OnAfterDeserialize() {
+        contents.Clear();
+        size = 0;
+        foreach (var entry in serializedContents) {
+            if (!contents.ContainsKey(entry.cardType)) {
+                contents[entry.cardType] = new Dictionary<int, int>();
+            }
+            contents[entry.cardType][entry.stars] = entry.amount;
+            size++;
+        }
+    }
 
     public bool ContainsCard(CardType card) {
         return contents.ContainsKey(card);
@@ -26,7 +62,7 @@ public class Decklist {
             contents[card] = new Dictionary<int, int>();
             contents[card][stars] = amount;
         }
-        size+= amount;
+        size += amount;
     }
 
     public void RemoveCard(CardType card) {
