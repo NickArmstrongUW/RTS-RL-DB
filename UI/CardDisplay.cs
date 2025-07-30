@@ -60,7 +60,8 @@ public class CardDisplay : MonoBehaviour
             return;
         }
         
-        count = entry.countOwned; // Start with 0 selected for deck building
+        int countInDeck = editDeckUI.workingDeck.CountOf(entry);
+        count = entry.countOwned - countInDeck; // Start with 0 selected for deck building
         UpdateCountText();
 
         // Clear any existing listeners

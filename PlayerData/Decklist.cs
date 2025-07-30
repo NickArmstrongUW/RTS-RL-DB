@@ -47,6 +47,19 @@ public class Decklist : ISerializationCallbackReceiver {
         return contents.ContainsKey(card);
     }
 
+    public int CountOf(PlayerData.PlayerCardEntry entry) {
+        return CountOf(entry.cardType, entry.stars);
+    }
+
+    public int CountOf(CardType card, int stars) {
+        if (contents.ContainsKey(card)) {
+            if (contents[card].ContainsKey(stars)) {
+                return contents[card][stars];
+            }
+        }
+        return 0;
+    }
+
     public void AddCard(CardType card) {
         AddCard(card, 1, 1);
     }
